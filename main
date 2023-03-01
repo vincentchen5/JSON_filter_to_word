@@ -1,0 +1,21 @@
+import json
+from docx import Document
+
+# Open the JSON file and load its contents
+with open('i18n_EN.json', 'r') as f:
+    i18n_dict = json.load(f)
+
+# Create a new Word document
+doc = Document()
+
+# Iterate over the keys and values in the dictionary
+for key, value in i18n_dict.items():
+    # Extract the word before ":" and the word after ","
+    before_colon = key.split(':')[0].strip()
+    after_comma = value.split(',')[0].strip()
+    
+    # Add the extracted words to the document
+    doc.add_paragraph(before_colon + ': ' + after_comma)
+
+# Save the document
+doc.save('output.docx')
